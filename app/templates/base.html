@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="Content-Security-Policy" content="defaults-rc 'self'">
+    <meta name="description" content="Extracts audio from Twitch clips">
+    <meta name="robots" content="index,follow">
+    {% if title %}
+    <title>{{ title }} - TwitchClipAudio</title>
+    {% else %}
+    <title>TwitchClipAudio</title>
+    {% endif %}
+
+    {% block scripts %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <h1><a href="{{ url_for('index') }}">Twitch Clip Audio</a></h1>
+    </header>
+    {% if announce %}
+    <section class="announce-area">
+        {{ announce }}
+    </section>
+    {% endif %}
+    {% block content %}{% endblock %}
+</body>
+</html>

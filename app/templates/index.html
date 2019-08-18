@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block scripts %}
+    <script>
+        function showClipPage() {
+            var enteredClip = document.getElementById("url-field").value;
+            if(enteredClip == null || enteredClip == '') {
+                alert('Please enter a valid twitch clip url');
+            } else {
+                var base_url = "{{ url_for('base_clip') }}";
+                var clip_id = enteredClip.split('/clip')[1].split('?')[0]
+                var url = base_url + clip_id
+                window.location.href = url;
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <section class="search-area">
+        <input type="text" id="url-field">
+        <button onclick="showClipPage()">Get Audio</button>
+    </section>
+
+    <section class="clip-listing-area">
+        {% for clip in clips %}
+        <a href="{{ 'clip/' + clip.id }}">
+        <article>
+            <img class="clip-image" src="{{ clip.thumb_url }}" alt="twitch clip thumbnail" />
+            <h1 class="clip-title">{{ clip.title }}</h1>
+        </article>
+        </a>
+        {% endfor %}
+    </section>
+
+{% endblock %}
